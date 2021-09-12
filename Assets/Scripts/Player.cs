@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public bool isDead;
     public delegate void PlayerDied();
     public static event PlayerDied playerDiedInfo;
+    public delegate void Score();
+    public static event Score score;
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +30,14 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         isDead = true;
-        ExecuteEvent();
-    }
-
-    void ExecuteEvent() {
         if (playerDiedInfo != null) {
             playerDiedInfo();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (score != null) {
+            score();
         }
     }
 }
