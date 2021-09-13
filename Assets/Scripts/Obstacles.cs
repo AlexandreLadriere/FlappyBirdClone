@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Obstacles : MonoBehaviour
@@ -9,16 +7,6 @@ public class Obstacles : MonoBehaviour
     private float OFF_SCREEN_LIMIT = -9.0f;
     private float UPPER_LIMIT = 4.9f;
     private float LOWER_LIMIT = 0.6f;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     private void FixedUpdate()
     {

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -22,11 +20,6 @@ public class GameManager : MonoBehaviour
         gameOverCanvas = GameObject.Find("GameOverCanvas");
         gameOverCanvas.SetActive(false);
         score = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void StartGame()
@@ -54,13 +47,16 @@ public class GameManager : MonoBehaviour
         GameOver();
     }
 
-    public void ScoreListener() {
+    public void ScoreListener()
+    {
         score += 1;
-        if (score >= 10) {
+        if (score >= 10)
+        {
             score0.sprite = scoreSprites[score.ToString()[0] - '0']; // see https://stackoverflow.com/questions/239103/convert-char-to-int-in-c-sharp
             score1.sprite = scoreSprites[score.ToString()[1] - '0']; // see https://stackoverflow.com/questions/239103/convert-char-to-int-in-c-sharp
         }
-        else {
+        else
+        {
             score1.sprite = scoreSprites[score];
         }
     }
