@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
     {
         gameOverCanvas.SetActive(true);
         Time.timeScale = 0;
+        if (score > PlayerPrefs.GetInt("highScore")) {
+            PlayerPrefs.SetInt("highScore", score);
+        }
     }
 
     public void PlayerDiedListener()
