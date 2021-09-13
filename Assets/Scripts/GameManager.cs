@@ -10,13 +10,21 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Sprite[] scoreSprites;
     private Image score0, score1;
+    private Image gameOverScore0, gameOverScore1;
+    private Image gameOverBestScore0, gameOverBestScore1;
 
     // Start is called before the first frame update
     void Start()
     {
         scoreCanvas = GameObject.Find("ScoreCanvas");
+        // Score Images
         score0 = GameObject.Find("Score_0").GetComponent<Image>();
         score1 = GameObject.Find("Score_1").GetComponent<Image>();
+        gameOverScore0 = GameObject.Find("GameOverScore0").GetComponent<Image>();
+        gameOverScore1 = GameObject.Find("GameOverScore1").GetComponent<Image>();
+        gameOverBestScore0 = GameObject.Find("GameOverBestScore0").GetComponent<Image>();
+        gameOverBestScore1 = GameObject.Find("GameOverBestScore1").GetComponent<Image>();
+        //
         gameOverCanvas = GameObject.Find("GameOverCanvas");
         gameOverCanvas.SetActive(false);
         score = 0;
@@ -39,9 +47,32 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         gameOverCanvas.SetActive(true);
+        scoreCanvas.SetActive(false);
         Time.timeScale = 0;
         if (score > PlayerPrefs.GetInt("highScore")) {
             PlayerPrefs.SetInt("highScore", score);
+        }
+        DisplayHighScore();
+        DisplayScore();
+    }
+
+    private void DisplayHighScore() {
+        if (PlayerPrefs.GetInt("highScore") > 9 ) {
+                gameOverBestScore0.sprite = scoreSprites[PlayerPrefs.GetInt("highScore").ToString()[0] - '0'];
+                gameOverBestScore1.sprite = scoreSprites[PlayerPrefs.GetInt("highScore").ToString()[1] - '0'];
+        }
+        else {
+            gameOverBestScore1.sprite = scoreSprites[PlayerPrefs.GetInt("highScore")];
+        }
+    }
+
+    private void DisplayScore() {
+        if (score > 9) {
+            gameOverScore0.sprite = scoreSprites[score.ToString()[0] - '0'];
+            gameOverScore1.sprite = scoreSprites[score.ToString()[1] - '0'];
+        }
+        else {
+            gameOverScore1.sprite = scoreSprites[score];
         }
     }
 
