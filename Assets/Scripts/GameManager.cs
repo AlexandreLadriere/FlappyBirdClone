@@ -16,16 +16,16 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreCanvas = GameObject.Find("ScoreCanvas");
+        scoreCanvas = GameObject.Find(Utils.CANVAS_SCORE);
         // Score Images
-        score0 = GameObject.Find("Score_0").GetComponent<Image>();
-        score1 = GameObject.Find("Score_1").GetComponent<Image>();
-        gameOverScore0 = GameObject.Find("GameOverScore0").GetComponent<Image>();
-        gameOverScore1 = GameObject.Find("GameOverScore1").GetComponent<Image>();
-        gameOverBestScore0 = GameObject.Find("GameOverBestScore0").GetComponent<Image>();
-        gameOverBestScore1 = GameObject.Find("GameOverBestScore1").GetComponent<Image>();
+        score0 = GameObject.Find(Utils.IMAGE_SCORE_0).GetComponent<Image>();
+        score1 = GameObject.Find(Utils.IMAGE_SCORE_1).GetComponent<Image>();
+        gameOverScore0 = GameObject.Find(Utils.IMAGE_GAMEOVER_SCORE_0).GetComponent<Image>();
+        gameOverScore1 = GameObject.Find(Utils.IMAGE_GAMEOVER_SCORE_1).GetComponent<Image>();
+        gameOverBestScore0 = GameObject.Find(Utils.IMAGE_GAMEOVER_BEST_SCORE_0).GetComponent<Image>();
+        gameOverBestScore1 = GameObject.Find(Utils.IMAGE_GAMEOVER_BEST_SCORE_1).GetComponent<Image>();
         //
-        gameOverCanvas = GameObject.Find("GameOverCanvas");
+        gameOverCanvas = GameObject.Find(Utils.CANVAS_GAMEOVER);
         gameOverCanvas.SetActive(false);
         score = 0;
     }
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene(Utils.SCENE_GAMEPLAY);
         StartGame();
     }
 
@@ -49,20 +49,20 @@ public class GameManager : MonoBehaviour
         gameOverCanvas.SetActive(true);
         scoreCanvas.SetActive(false);
         Time.timeScale = 0;
-        if (score > PlayerPrefs.GetInt("highScore")) {
-            PlayerPrefs.SetInt("highScore", score);
+        if (score > PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE)) {
+            PlayerPrefs.SetInt(Utils.PLAYER_PREFS_HIGHSCORE, score);
         }
         DisplayHighScore();
         DisplayScore();
     }
 
     private void DisplayHighScore() {
-        if (PlayerPrefs.GetInt("highScore") > 9 ) {
-                gameOverBestScore0.sprite = scoreSprites[PlayerPrefs.GetInt("highScore").ToString()[0] - '0'];
-                gameOverBestScore1.sprite = scoreSprites[PlayerPrefs.GetInt("highScore").ToString()[1] - '0'];
+        if (PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE) > 9 ) {
+                gameOverBestScore0.sprite = scoreSprites[PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE).ToString()[0] - '0'];
+                gameOverBestScore1.sprite = scoreSprites[PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE).ToString()[1] - '0'];
         }
         else {
-            gameOverBestScore1.sprite = scoreSprites[PlayerPrefs.GetInt("highScore")];
+            gameOverBestScore1.sprite = scoreSprites[PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE)];
         }
     }
 

@@ -3,7 +3,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private float velocity = 6f;
     public bool isDead;
     public delegate void PlayerDied();
     public static event PlayerDied playerDiedInfo;
@@ -23,7 +22,7 @@ public class Player : MonoBehaviour
         // go up if space or main key clicked
         if (Input.GetKey(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            rb.velocity = Vector2.up * velocity;
+            rb.velocity = Vector2.up * Utils.PLAYER_VELOCITY;
         }
     }
 
