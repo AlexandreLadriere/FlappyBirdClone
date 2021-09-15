@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Class <c>Player</c> models the player</summary>
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;

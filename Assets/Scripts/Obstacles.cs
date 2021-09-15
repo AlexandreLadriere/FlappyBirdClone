@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Class <c>Obstacles</c> models the obstacles</summary>
 public class Obstacles : MonoBehaviour
 {
     private float movementX;
@@ -9,6 +10,8 @@ public class Obstacles : MonoBehaviour
         MoveObstacles();
     }
 
+    /// <summary>Translate the obstacle sprite to the left until a specific x coordinate, 
+    /// then move it to the starting point and setting the y coordinate to a random value</summary>
     private void MoveObstacles()
     {
         Vector2 newPos = new Vector2(0f, Random.Range(Utils.OBSTACLES_LOWER_LIMIT, Utils.OBSTACLES_UPPER_LIMIT));

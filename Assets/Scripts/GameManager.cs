@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>Class <c>GameManager</c> models the game manager object</summary>
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverCanvas, scoreCanvas;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
         score = 0;
     }
 
+    /// <summary>Start a new game by starting timescale and setting score to 0</summary>
     public void StartGame()
     {
         Time.timeScale = 1;
@@ -38,12 +40,17 @@ public class GameManager : MonoBehaviour
         score0.sprite = scoreSprites[0];
     }
 
+    /// <summary>Restart a new game by loading the main scene and calling the <c>StartGame</c> function</summary>
+    /// <see cref="StartGame"/>
     public void RestartGame()
     {
         SceneManager.LoadScene(Utils.SCENE_GAMEPLAY);
         StartGame();
     }
 
+    /// <summary> Display GameOver canvas, stop timescale, display scores and save score if highscore </summary>
+    /// <see cref="DisplayHighScore"/>
+    /// <see cref="DisplayScore"/>
     public void GameOver()
     {
         gameOverCanvas.SetActive(true);
@@ -56,6 +63,9 @@ public class GameManager : MonoBehaviour
         DisplayScore();
     }
 
+    /// <summary> Display highscore </summary>
+    /// <see cref="GameOver"/>
+    /// <see cref="DisplayScore"/>
     private void DisplayHighScore() {
         if (PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE) > 9 ) {
                 gameOverBestScore0.sprite = scoreSprites[PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE).ToString()[0] - '0'];
@@ -66,6 +76,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary> Display score </summary>
+    /// <see cref="GameOver"/>
+    /// <see cref="DisplayHighScore"/>
     private void DisplayScore() {
         if (score > 9) {
             gameOverScore0.sprite = scoreSprites[score.ToString()[0] - '0'];

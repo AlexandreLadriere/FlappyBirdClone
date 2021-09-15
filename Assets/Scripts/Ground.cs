@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Class <c>Ground</c> models the main scene ground</summary>
 public class Ground : MonoBehaviour
 {
     private float movementX;
@@ -8,6 +9,8 @@ public class Ground : MonoBehaviour
         MoveGround();
     }
 
+    /// <summary>Translate the ground sprite to the left until a specific x coordinate, 
+    /// then move it to the starting point again</summary>
     private void MoveGround() {
         Vector2 newPos = new Vector2(Utils.GROUND_RIGHT_LIMIT, Utils.GROUND_Y);
         if (transform.position.x <= Utils.GROUND_LEFT_LIMIT) {

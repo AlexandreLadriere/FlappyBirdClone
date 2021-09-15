@@ -1,3 +1,4 @@
+/// <summary>Class <c>Utils</c> models the class which store all constants and game objects names</summary>
 public static class Utils
 {
     // Ground
