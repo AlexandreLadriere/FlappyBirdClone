@@ -31,6 +31,19 @@ public class GameManager : MonoBehaviour
         score = 0;
     }
 
+
+    private void OnEnable()
+    {
+        Player.playerDiedInfo += PlayerDiedListener;
+        Player.score += ScoreListener;
+    }
+
+    private void OnDisable()
+    {
+        Player.playerDiedInfo -= PlayerDiedListener;
+        Player.score -= ScoreListener;
+    }
+
     /// <summary>Start a new game by starting timescale and setting score to 0</summary>
     public void StartGame()
     {
@@ -51,6 +64,7 @@ public class GameManager : MonoBehaviour
     /// <summary> Display GameOver canvas, stop timescale, display scores and save score if highscore </summary>
     /// <see cref="DisplayHighScore"/>
     /// <see cref="DisplayScore"/>
+    /// <see cref="setScoreSprite"/>
     public void GameOver()
     {
         gameOverCanvas.SetActive(true);
@@ -66,27 +80,17 @@ public class GameManager : MonoBehaviour
     /// <summary> Display highscore </summary>
     /// <see cref="GameOver"/>
     /// <see cref="DisplayScore"/>
+    /// <see cref="setScoreSprite"/>
     private void DisplayHighScore() {
-        if (PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE) > 9 ) {
-                gameOverBestScore0.sprite = scoreSprites[PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE).ToString()[0] - '0'];
-                gameOverBestScore1.sprite = scoreSprites[PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE).ToString()[1] - '0'];
-        }
-        else {
-            gameOverBestScore1.sprite = scoreSprites[PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE)];
-        }
+        setScoreSprite(gameOverBestScore0, gameOverBestScore1, PlayerPrefs.GetInt(Utils.PLAYER_PREFS_HIGHSCORE));
     }
 
     /// <summary> Display score </summary>
     /// <see cref="GameOver"/>
     /// <see cref="DisplayHighScore"/>
+    /// <see cref="setScoreSprite"/>
     private void DisplayScore() {
-        if (score > 9) {
-            gameOverScore0.sprite = scoreSprites[score.ToString()[0] - '0'];
-            gameOverScore1.sprite = scoreSprites[score.ToString()[1] - '0'];
-        }
-        else {
-            gameOverScore1.sprite = scoreSprites[score];
-        }
+        setScoreSprite(gameOverScore0, gameOverScore1, score);
     }
 
     public void PlayerDiedListener()
@@ -97,26 +101,25 @@ public class GameManager : MonoBehaviour
     public void ScoreListener()
     {
         score += 1;
-        if (score >= 10)
+        setScoreSprite(score0, score1, score);
+    }
+
+    /// <summary>Set score sprites</summary>
+    /// <param name="scoreImg0">Score first digit</param>
+    /// <param name="scoreImg1">Score second digit</param>
+    /// <param name="score">Score value that you want to display</param>
+    /// <see cref="GameOver"/>
+    /// <see cref="DisplayHighScore"/>
+    /// <see cref="DisplayScore"/>
+    private void setScoreSprite(Image scoreImg0, Image scoreImg1, int score) {
+        if (score > 9)
         {
-            score0.sprite = scoreSprites[score.ToString()[0] - '0']; // see https://stackoverflow.com/questions/239103/convert-char-to-int-in-c-sharp
-            score1.sprite = scoreSprites[score.ToString()[1] - '0']; // see https://stackoverflow.com/questions/239103/convert-char-to-int-in-c-sharp
+            scoreImg0.sprite = scoreSprites[score.ToString()[0] - '0']; // see https://stackoverflow.com/questions/239103/convert-char-to-int-in-c-sharp
+            scoreImg1.sprite = scoreSprites[score.ToString()[1] - '0']; // see https://stackoverflow.com/questions/239103/convert-char-to-int-in-c-sharp
         }
         else
         {
-            score1.sprite = scoreSprites[score];
+            scoreImg1.sprite = scoreSprites[score];
         }
-    }
-
-    private void OnEnable()
-    {
-        Player.playerDiedInfo += PlayerDiedListener;
-        Player.score += ScoreListener;
-    }
-
-    private void OnDisable()
-    {
-        Player.playerDiedInfo -= PlayerDiedListener;
-        Player.score -= ScoreListener;
     }
 }
